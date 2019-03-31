@@ -18,7 +18,6 @@ class CreateSettingsTable extends Migration
             $table->string("facebook");
             $table->string("instagram");
             $table->string("twitter");
-            $table->string("youtube");
             $table->string("whatsapp");
             $table->string("phone_1");
             $table->string("phone_2");
