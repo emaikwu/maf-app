@@ -4,13 +4,16 @@
     $title = "APP SETTINGS";
     $active = "Setting";
     $items = [
-        ["name" => "Add setting", "link" => "/admin/settings/create"], 
+        ["name" => "Add settings", "link" => "/admin/settings/create"], 
 ];
 @endphp
 
 @extends('layouts.admin.admin')
 @section('content')
 
-  Settins
+  @if(count($settings)> 0)
+  @else 
+    <h5 class="text-center">There are no settings yet <a href="/admin/settings/create">add settings</a> here</h5>
+  @endif
 
 @endsection

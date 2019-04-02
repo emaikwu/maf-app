@@ -1,21 +1,15 @@
 @php    
-    $page_title = $mode["edit"] ? "Edit Setting - Mafete n Gifts" : "Add Setting - Mafete n Gifts";
-    $title = $mode["edit"] ? "EDIT SETTING" : "ADD SETTING";
-    $active = $mode["edit"] ? "Edit setting" : "Add setting";
-    $items = $mode["edit"] ?
-    [
-        ["name" => "Setting", "link" => "/admin/settings"], 
-        ["name" => "Add setting", "link" => "/admin/settings/create"], 
-    ]
-    :
-    [
-        ["name" => "Setting", "link" => "/admin/settings"], 
+    $page_title = "Add Setting - Mafete n Gifts";
+    $title = "ADD SETTING";
+    $active = "Add settings";
+    $items = [
+        ["name" => "Settings", "link" => "/admin/settings"], 
     ];
 @endphp
 
 @extends('layouts.admin.admin')
 @section('content')
-<form action="{{$mode["edit"] ? "/admin/settings/1" : "/admin/settings"}}" method="POST">
+<form action="/admin/settings" method="POST">
     @csrf
     <div class="row">
         <div class="col-md-6">
@@ -68,7 +62,7 @@
         </div>
     </div>
     <div class="form-group">
-    <button id="admin-btn">{{$mode["edit"] ? "SAVE" : "ADD SETTING"}}</button>
+    <button id="admin-btn">ADD SETTING</button>
     </div>
 </form>
 @endsection

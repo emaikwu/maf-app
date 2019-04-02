@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Slides;
+use Session;
 use Illuminate\Http\Request;
 
 class SlidesController extends Controller
@@ -13,7 +15,8 @@ class SlidesController extends Controller
      */
     public function index()
     {
-        return view("admin.slides.index");
+        $slides = Slides::get();
+        return view("admin.slides.index")->with("slides", $slides);
     }
 
     /**
@@ -35,7 +38,27 @@ class SlidesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [];
+        if($request->isMethod("POST")) {
+            $this->validate($request, 
+                [
+                    "title" => "required",
+                    "photo" => "required|mimes:png,jpeg,gif,bmp",
+                    "info" => "required|max:250"
+                ]
+            );
+            if($request->hasfile("photo")) 
+            {
+                $name = time().$request->photo->getClientOriginalName();
+                $data["photo"] = $name;
+                $request->photo->move(public_path("/images/slides"), $name);
+            }
+            $data["title"] = $request->title;
+            $data["info"] = $request->info;
+            Slides::create($data);
+            Session::flash("success", "Slide was added successfully");
+            return redirect("/admin/slides");
+        }
     }
 
     /**
@@ -57,8 +80,8 @@ class SlidesController extends Controller
      */
     public function edit($id)
     {
-        $mode = ["edit" => true, "add" => false];
-        return view("admin.slides.form")->with("mode", $mode);
+        $slide = Slides::find($id);
+        return view("admin.slides.edit-form")->with(["slide" => $slide]);
     }
 
     /**
@@ -70,7 +93,34 @@ class SlidesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $slide = Slides::find($id);
+        $data = [];
+        if($request->isMethod("PUT"))
+        {
+            $this->validate($request, 
+                [
+                    "title" => "required",
+                    "photo" => "mimes:jpeg,png,bmp,gif",
+                    "info" => "required|max:250"
+                ]
+            );
+            if($request->hasfile("photo"))
+            {
+                $file = public_path("/images/slides/").$slide->photo;
+                if(file_exists($file)) 
+                {
+                    unlink($file);
+                }
+                $name = time().$request->photo->getClientOriginalName();
+                $request->photo->move(public_path("/images/slides"), $name);
+                $data["photo"] = $name;
+            }
+            $data["title"] = $request->title;
+            $data["info"] = $request->info;
+            $slide->update($data);
+            Session::flash("success", "Slide was updated successfully");
+            return redirect("/admin/slides");
+        }
     }
 
     /**
@@ -81,6 +131,16 @@ class SlidesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $slide = Slides::find($id);
+        if($slide)
+        {
+            $file = public_path("images/slides/").$slide->photo;
+            if(file_exists($file)) {
+                unlink($file);
+            }
+            $slide->delete();
+            Session::flash("success", "Slide was deleted successfully");
+            return redirect("/admin/slides");
+        }
     }
 }

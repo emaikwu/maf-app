@@ -16,19 +16,21 @@
 @extends('layouts.admin.admin')
 @section('content')
 
-  <form action="{{$mode["edit"] ? "/admin/abouts/1" : "/admin/abouts"}}" method="POST">
+  <form action="{{$mode["edit"] ? "/admin/abouts/$about->id?_method=PUT" : "/admin/abouts"}}" method="POST" enctype="multipart/form-data">
     @csrf
+    @if($mode["edit"])
+      @method("PUT")
+    @endif
     <div class="form-group">
-      <label for="photo">Page photo</label>
-      <input type="file" class="form-control" name="photo" id="photo"">
+      <label for="photo">Page photo <span class="error">{{$errors->first("photo")}}</span></label>
+    <input type="file" value="{{old("photo")}}" class="form-control" name="photo" id="photo"">
     </div>
     <div class="form-group">
-      <label for="content">Page content</label>
-      <div name="content" id="content" class="form-control content"></div>
+    <label for="content">Page content <span class="error">{{$errors->first("content")}}</span></label>
+      <textarea name="content" class="form-control content">{{$mode["edit"] ? $about->content: old("content")}}</textarea>
     </div>
     <div class="form-group">
       <button id="admin-btn">{{$mode["edit"] ? "SAVE" : "ADD PAGE"}}</button>
     </div>
   </form>
-
 @endsection

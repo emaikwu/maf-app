@@ -25,29 +25,10 @@
   </nav>
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{asset("imgs/avatar2.png")}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{asset("imgs/avatar.png")}}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
+          <!-- Sidebar Menu -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="/" class="brand-link">
-          <img src="" alt="Mafete n gifts logo" class="brand-image img-circle elevation-3"
+          <img src="/imgs/logo.png" alt="Mafete n gifts logo" class="brand-image img-circle elevation-3"
                style="opacity: 1; border-radius: 0">
           <span class="brand-text font-weight-light">Mafete</span>
         </a>
@@ -55,7 +36,7 @@
         <div class="sidebar">
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="" class="img-circle elevation-2" alt="User"/>
+              <img src="/imgs/avatar3.png" class="img-circle elevation-2" alt="User"/>
             </div>
             <div class="info">
               <a href="/admin" class="d-block">Alexander Pierce</Link>
@@ -73,7 +54,7 @@
               </li>
               <li class="nav-item has-treeview">
                 <a href="/admin/products" class="nav-link">
-                   <i class="fa fa-edit nav-icon"></i>
+                   <i class="fa fa-gift nav-icon"></i>
                   <p>
                     Products  
                     <i class="right fa fa-angle-right"></i>
@@ -109,7 +90,7 @@
               </li>
               <li class="nav-item has-treeview">
                 <a href="/admin/abouts" class="nav-link">
-                  <i class="nav-icon fa fa-book"></i>
+                  <i class="nav-icon fa fa-info-circle"></i>
                   <p>
                     About page
                     <i class="fa fa-angle-right right"></i>
@@ -118,7 +99,7 @@
               </li>
                <li class="nav-item has-treeview">
                 <a href="/admin/settings" class="nav-link">
-                  <i class="nav-icon fa fa-book"></i>
+                  <i class="nav-icon fa fa-gear"></i>
                   <p>
                     App settings
                     <i class="fa fa-angle-right right"></i>

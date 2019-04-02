@@ -15,11 +15,14 @@
 
 @extends('layouts.admin.admin')
 @section('content')
-<form action="{{$mode["edit"] ? "/admin/categories/1" : "/admin/categories"}}" method="POST">
+<form action="{{$mode["edit"] ? "/admin/categories/$category->id?_method=PUT" : "/admin/categories"}}" method="POST">
+    @csrf
+    @if($mode["edit"])
+      @method("PUT")
+    @endif
     <div class="form-group">
-      <label for="name">Category name</label>
-      <input type="text"
-        class="form-control" name="name" id="name">
+      <label for="name">Category name <span class="error">{{$errors->first("name")}}</span></label>
+      <input type="text"class="form-control" name="name" id="name" value="{{$mode["edit"] ? $category->name : old("name")}}">
     </div>
     <div class="form-group">
     <button id="admin-btn">{{$mode["edit"] ? "SAVE" : "ADD Category"}}</button>
