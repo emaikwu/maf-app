@@ -10,7 +10,7 @@
 
 @extends('layouts.admin.admin')
 @section('content')
-  <form action="/admin/slides/$slide->id?_method=PUT" method="POST" enctype="multipart/form-data">
+  <form action="/admin/slides/{{$slide->id}}?_method=PUT" method="POST" enctype="multipart/form-data">
     @csrf
     @method("PUT")
     <div class="form-group">

@@ -1,0 +1,100 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Cinzel:400,700|Exo:300,400,500,600,700|Overpass:300,400,600,700|Ovo);div.top-bar {
+  height: 80px;
+  width: 100%;
+  background-color: #000;
+}
+
+div.top-bar#home-navigation {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+}
+
+ul.menu {
+  background-color: transparent;
+}
+
+div.logo {
+  width: 195px;
+  margin-left: 30px;
+}
+
+div.logo img {
+  width: 40px;
+}
+
+div.logo a {
+  padding: 0;
+  color: #fff;
+}
+
+div.logo h1 {
+  font-family: Montserrat, sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 16px 0 0;
+}
+
+.menu li.menu-text {
+  color: #fff;
+  font-family: Montserrat;
+  font-weight: 400;
+  line-height: unset;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+ul.menu li a {
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: Montserrat;
+  text-transform: uppercase;
+  padding: 0.7rem 0.2rem;
+  margin: 0 0.5rem;
+}
+
+div#slide-wrapper {
+  background-color: rgba(0, 0, 0, 0.51);
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.81) 1%, rgba(0, 0, 0, 0) 144%);
+  position: absolute;
+  bottom: 0px;
+  color: #fff;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+}
+
+div.slide-content {
+  position: absolute;
+  bottom: 120px;
+}
+
+div.slide-content h2 {
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 2px 2px 3px black;
+  font-size: 2.2rem;
+  font-family: Exo, sans-serif;
+}
+
+div.slide-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  font-size: 1.1rem;
+  width: 60%;
+  font-family: Montserrat;
+  font-weight: 300;
+}
+
+ul.menu li a.active {
+  border-bottom: 1px solid #fff;
+}
+
+div.top-bar-right {
+  margin-right: 25px;
+}
+
