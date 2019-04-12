@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Session;
 use App\About;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AboutsController extends Controller
@@ -15,6 +16,7 @@ class AboutsController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $abouts = About::get();
         return view("admin.abouts.index")->with("abouts", $abouts);
     }
@@ -26,6 +28,7 @@ class AboutsController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $about = About::get();
         if(count($about) > 0) {
             Session::flash("info", "An About page already exists edit it instead");
@@ -44,6 +47,7 @@ class AboutsController extends Controller
      */
     public function store(Request $request, About $about)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $data = [];
         if($request->isMethod("POST"))
         {
@@ -75,7 +79,8 @@ class AboutsController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        return redirect("/admin/abouts");
     }
 
     /**
@@ -86,6 +91,7 @@ class AboutsController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $about = About::find($id);
         $mode = ["edit" => true, "add" => false];
         return view("admin.abouts.form")->with(["mode" => $mode, "about" => $about]);
@@ -100,8 +106,8 @@ class AboutsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $about = About::find($id);
-
         if($request->isMethod("PUT"))
         {
             $this->validate(
@@ -133,6 +139,7 @@ class AboutsController extends Controller
      */
     public function destroy($id)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $about = About::find($id);
         $about->delete();
         Session::flash("success", "About was deleted successfully");

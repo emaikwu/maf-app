@@ -21,11 +21,11 @@
                   <h3>{{$slide->title}}</h3>
                   <p>{{$slide->info}}</p>
                   <div>
-                    <a href="/admin/slides/{{$slide->id}}/edit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+                    <a href="/admin/slides/{{$slide->id}}/edit" class="btn btn-sm btn-flat btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
                     <form style="display:inline-block;margin-left:13px" action="/admin/slides/{{$slide->id}}?_method=DELETE" method="POST">
                       @csrf
                       @method("DELETE")
-                    <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                    <button class="btn btn-danger btn-sm btn-flat"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                     </form>
                   </div>
                 </div>
@@ -35,7 +35,7 @@
       </div>
     </div>  
   @else 
-    <h5 class="text-center">Your there are no slides yet <a href="/admin/slides/create">add slides</a> here</h5>
+    <h5 class="text-center">There are no slides <a href="/admin/slides/create">add slides</a></h5>
   @endif
 
 @endsection

@@ -1,26 +1,27 @@
-<div class="callout large secondary">
-  <div class="row">
-    <div class="large-4 columns">
-      <h3>ADDRESS</h3>
-      <p>Curabitur vulputate, ligula lacinia scelerisque tempor, lacus lacus ornare ante, ac egestas est urna sit amet
-        arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed molestie
-        augue sit.</p>
-    </div>
-    <div class="large-3 large-offset-2 columns">
-      <ul class="menu horizontal">
-        <li><a href="#">One</a></li>
-        <li><a href="#">Two</a></li>
-        <li><a href="#">Three</a></li>
-        <li><a href="#">Four</a></li>
-      </ul>
-    </div>
-    <div class="large-3 columns">
-      <ul class="menu horizontal">
-        <li><a href="#">One</a></li>
-        <li><a href="#">Two</a></li>
-        <li><a href="#">Three</a></li>
-        <li><a href="#">Four</a></li>
-      </ul>
+<footer class="callout">
+  <div class="grid-x grid-padding-x">
+    <div class="small-12">
+      <div class="social">
+        @isset($settings)
+          <h2>We are social</h2>
+          <ul>
+            @foreach($settings as $setting)
+              @if($setting->facebook)
+                <li><a href="{{$setting->facebook}}"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              @endif
+              @if($setting->instagram)
+                <li><a href="{{$setting->instagram}}"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+              @endif
+              @if($setting->twitter)
+                <li><a href="{{$setting->twitter}}"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              @endif
+            @endforeach
+          </ul>
+        @endisset
+      </div>
     </div>
   </div>
-</div>
+  <div class="copy">
+    <p>&copy; <?php time() ?> Mafete n Gifts All rights reserved</p>
+  </div>
+</footer>

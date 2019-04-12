@@ -1,20 +1,20 @@
-<div class="orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
-  <ul class="orbit-container">
-    <button class="orbit-previous" aria-label="previous"><span class="show-for-sr">Previous
-        Slide</span>&#9664;</button>
-    <button class="orbit-next" aria-label="next"><span class="show-for-sr">Next Slide</span>&#9654;</button>
+<div id="hero" class="owl-carousel owl-theme">
     @if(isset($slides))
       @foreach($slides as $key => $value)
-        <li class="orbit-slide {{$key === 0 ? "is-active" : null}}">
-          <img src="/images/slides/{{$value->photo}}" alt=""/>
-          <div id="slide-wrapper">
-            <div class="slide-content">
-              <h2>{{$value->title}}</h2>
-              <p>{{$value->info}}</p>
+        <div class="slide-item">
+          <img class="owl-lazy" data-src="/images/slides/{{$value->photo}}"/>
+            <div id="slide-wrapper">
+              <div class="slide-content">
+                <h2>{{$value->title}}</h2>
+                <p>{{$value->info}}</p>
+              </div>
+              <div class="counter">
+                <span class="current">{{$key + 1}}</span>
+                <span class="slash">/</span>
+                <span class="total">{{count($slides)}}</span>
+              </div>
             </div>
-          </div>
-        </li>
+        </div>
       @endforeach
     @endif
-  </ul>
 </div>

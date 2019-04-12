@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Category;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Illuminate\Http\Request;
 
@@ -17,10 +18,11 @@ class ProductsController extends Controller
     public function index(Product $product)
     {
         $products = Product::get();
+        $categories = Category::get();
         foreach ($products as $product) {
             $product->images = json_decode($product->images);
         }
-        return view("admin.products.index")->with("products", $products);
+        return view("admin.products.index")->with(["products" =>$products, "categories" => $categories]);
     }
 
     /**
@@ -86,7 +88,11 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->images = json_decode($product->images);
+        $category = Category::findOrFail($product->id);
+        return view("admin.products.product")
+                ->with(["product"=>$product, "category"=>$category]);
     }
 
     /**
@@ -98,7 +104,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $categories = Category::get();
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         return view("admin.products.edit-form")
         ->with(["categories" => $categories, "product" => $product]);
     }
@@ -112,7 +118,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
    
         $data = [];
         $data["name"] = $request->name;
@@ -144,7 +150,7 @@ class ProductsController extends Controller
                     $data["images"] = json_encode($image_names);
                 }
                 foreach(json_decode($product->images) as $image) {
-                    $file = public_path("images/products/").$image;
+                    $file = public_path("/images/products/").$image;
                     if(file_exists($file)) {
                         unlink($file);
                     }
@@ -164,7 +170,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         foreach(json_decode($product->images) as $image) {
             $file = public_path("images/products/").$image;
             if(file_exists($file)) {
@@ -175,5 +181,20 @@ class ProductsController extends Controller
         Session::flash("success", "Product was deleted successfully");
         return redirect("/admin/products");
         
+    }
+
+    public function search(Request $request) 
+    {
+        $products = Product::where("name", "like", "%". request("query") . "%")->take(5)->get();
+        foreach($products as $product) {
+            $product->images = json_decode($product->images);
+        }
+        if(request("ajax")) {
+            return response()->json($products, 200);
+        }
+        return view("admin.products.search")->with([
+            "products" => $products, 
+            "query"=>request("query")
+            ]);
     }
 }

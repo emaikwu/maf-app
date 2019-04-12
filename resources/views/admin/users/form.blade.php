@@ -1,30 +1,21 @@
 @php    
-    $page_title = $mode["edit"] ? "Edit User - Mafete n Gifts" : "Add User - Mafete n Gifts";
-    $title = $mode["edit"] ? "EDIT USER" : "ADD USER";
-    $active = $mode["edit"] ? "Edit users" : "Add users";
-    $items = $mode["edit"] ?
-    [
-        ["name" => "Users", "link" => "/admin/users"], 
-        ["name" => "Add users", "link" => "/admin/users/create"], 
-    ]
-    :
-    [
+    $page_title = "Add User - Mafete n Gifts";
+    $title = "ADD USER";
+    $active = "Add users";
+    $items = [
         ["name" => "Users", "link" => "/admin/users"], 
     ];
 @endphp
 
 @extends('layouts.admin.admin')
 @section('content')
-  <form action="{{$mode["edit"] ? "/admin/users/1" : "/admin/users"}}" method="POST" enctype="multipart/form-data">
+  <form action="/admin/users" method="POST" enctype="multipart/form-data">
     @csrf
-    @if($mode["edit"])
-      @method("PUT")
-    @endif
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label for="first_name">First name <span class="error">{{$errors->first("first_name")}}</span></label>
-          <input type="text" id="first_name" autoFocus class="form-control" name="first_name"
+          <input type="text" id="first_name" autofocus class="form-control" name="first_name"
           value="{{old("first_name")}}"
           >
         </div>
@@ -62,21 +53,19 @@
           <div ><label>User role <span class="error">{{$errors->first("role")}}</span></label></div>
             <div class="form-check form-check-inline">
               <label for="admin">
-              <input type="radio" name='role' id="admin"
-                value="admin"
+              <input type="radio" name='role' id="admin" value="admin" @if(old("role") == "admin") checked @endif
               /> Admin
               </label>
             </div>
             <div class="form-check form-check-inline">
               <label for="user">
-              <input type="radio" name='role' id="user" checked
-                value="user"
+              <input type="radio" name='role' id="user" value="user" @if(old("role") == "user") checked @else @if(!old("role")) checked @endif @endif
               /> User
               </label>
             </div>
           </div>
           <div class="form-group">
-            <button id="admin-btn">{{$mode["edit"] ? "SAVE" : "Add user"}}</button>
+            <button id="admin-btn">Add user</button>
           </div>
         </div>
       </div>

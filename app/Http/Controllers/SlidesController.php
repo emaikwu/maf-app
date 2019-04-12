@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Slides;
 use Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SlidesController extends Controller
@@ -15,6 +16,7 @@ class SlidesController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $slides = Slides::get();
         return view("admin.slides.index")->with("slides", $slides);
     }
@@ -26,6 +28,7 @@ class SlidesController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $mode = ["edit" => false, "add" => true];
         return view("admin.slides.form")->with("mode", $mode);
     }
@@ -38,6 +41,7 @@ class SlidesController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $data = [];
         if($request->isMethod("POST")) {
             $this->validate($request, 
@@ -69,7 +73,8 @@ class SlidesController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        return redirect("/admin/settings");
     }
 
     /**
@@ -80,6 +85,7 @@ class SlidesController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $slide = Slides::find($id);
         return view("admin.slides.edit-form")->with(["slide" => $slide]);
     }
@@ -93,6 +99,7 @@ class SlidesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $slide = Slides::find($id);
         $data = [];
         if($request->isMethod("PUT"))
@@ -131,6 +138,7 @@ class SlidesController extends Controller
      */
     public function destroy($id)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $slide = Slides::find($id);
         if($slide)
         {

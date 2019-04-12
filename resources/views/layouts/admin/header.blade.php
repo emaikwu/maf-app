@@ -8,15 +8,18 @@
         <a href="/" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none ml-5 d-sm-inline-block">
-        <a href="/admin/login" class="nav-link">Login</a>
+        <form action="{{route("logout")}}" method="POST">
+          @csrf
+          <button class="btn btn-flat btn-block btn-dark text-light">Logout</button>
+        </form>
       </li>
     </ul>
 
-    <form class="form-inline ml-5">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search"/>
+    <form action="/admin/s" method="GET" class="form-inline ml-5">
+      <div class="input-group input-group">
+        <input class="form-control form-control-navbar" type="search" placeholder="Search products" aria-label="Search" autofocus name="query">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button id="search-btn" class="btn btn-navbar" type="submit">
             <i class="fa fa-search"></i>
           </button>
         </div>
@@ -30,16 +33,20 @@
         <a href="/" class="brand-link">
           <img src="/imgs/logo.png" alt="Mafete n gifts logo" class="brand-image img-circle elevation-3"
                style="opacity: 1; border-radius: 0">
-          <span class="brand-text font-weight-light">Mafete</span>
+          <span class="brand-text font-weight-light">Mafete n Gifts</span>
         </a>
 
         <div class="sidebar">
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="/imgs/avatar3.png" class="img-circle elevation-2" alt="User"/>
+              @auth
+                <img src="/images/users/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="User"/>
+              @endauth
             </div>
             <div class="info">
-              <a href="/admin" class="d-block">Alexander Pierce</Link>
+              @auth
+                <a href="/admin" class="d-block">{{Auth::user()->first_name . " " . Auth::user()->last_name}}</a>  
+              @endauth
             </div>
           </div>
           <nav class="mt-2">
@@ -61,51 +68,55 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview">
-                <a href="/admin/users" class="nav-link">
-                  <i class="fa fa-users nav-icon" aria-hidden="true"></i>
-                  <p>
-                    Users
-                    <i class="fa fa-angle-right right"></i>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item has-treeview">
-                <a href="/admin/categories" class="nav-link">
-                  <i class="nav-icon fa fa-book"></i>
-                  <p>
-                    Categories
-                    <i class="fa fa-angle-right right"></i>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item has-treeview">
-                <a href="/admin/slides" class="nav-link">
-                  <i class="nav-icon fa fa-book"></i>
-                  <p>
-                    Slides
-                    <i class="fa fa-angle-right right"></i>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item has-treeview">
-                <a href="/admin/abouts" class="nav-link">
-                  <i class="nav-icon fa fa-info-circle"></i>
-                  <p>
-                    About page
-                    <i class="fa fa-angle-right right"></i>
-                  </p>
-                </a>
-              </li>
-               <li class="nav-item has-treeview">
-                <a href="/admin/settings" class="nav-link">
-                  <i class="nav-icon fa fa-gear"></i>
-                  <p>
-                    App settings
-                    <i class="fa fa-angle-right right"></i>
-                  </p>
-                </a>
-              </li>
+              @auth
+                @if(Auth::user()->role === "admin")
+                  <li class="nav-item has-treeview">
+                    <a href="/admin/users" class="nav-link">
+                      <i class="fa fa-users nav-icon" aria-hidden="true"></i>
+                      <p>
+                        Users
+                        <i class="fa fa-angle-right right"></i>
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item has-treeview">
+                    <a href="/admin/categories" class="nav-link">
+                      <i class="nav-icon fa fa-book"></i>
+                      <p>
+                        Categories
+                        <i class="fa fa-angle-right right"></i>
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item has-treeview">
+                    <a href="/admin/slides" class="nav-link">
+                      <i class="nav-icon fa fa-book"></i>
+                      <p>
+                        Slides
+                        <i class="fa fa-angle-right right"></i>
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item has-treeview">
+                    <a href="/admin/abouts" class="nav-link">
+                      <i class="nav-icon fa fa-info-circle"></i>
+                      <p>
+                        About page
+                        <i class="fa fa-angle-right right"></i>
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item has-treeview">
+                    <a href="/admin/settings" class="nav-link">
+                      <i class="nav-icon fa fa-gear"></i>
+                      <p>
+                        App settings
+                        <i class="fa fa-angle-right right"></i>
+                      </p>
+                    </a>
+                  </li>
+                @endif
+              @endauth
             </ul>
           </nav>
         </div>

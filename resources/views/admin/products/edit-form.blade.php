@@ -11,16 +11,16 @@
 @extends('layouts.admin.admin')
 @section('content')
 
-<form action="/admin/products/$product->id?_method=PUT"" method="POST" enctype="multipart/form-data">
+<form action="/admin/products/{{$product->id}}?_method=PUT"" method="POST" enctype="multipart/form-data">
     @csrf
     @method("PUT")
     <div class="form-group">
       <label for="name">Product name <span class="error">{{$errors->first("name")}}</span></label>
-    <input type="text"class="form-control" name="name" id="name"value="{{old("name") ?: $product->name}}">
+    <input type="text"class="form-control" name="name" id="name"value="{{$errors->first("name") ? old("name") : $product->name}}">
     </div>
     <div class="form-group">
       <label for="price">Product price <span class="error">{{$errors->first("price")}}</span></label>
-      <input type="text"class="form-control" name="price" id="price" value="{{old("price") ?: $product->price}}">
+      <input type="text"class="form-control" name="price" id="price" value="{{$errors->first("price") ? old("price") : $product->price}}">
     </div>
     <div class="form-group">
       <label for="images">Product images <span class="error">{{$errors->first("images")}}</span></label>
@@ -32,9 +32,9 @@
         <option checked value="">Select a category</option>
         @foreach ($categories as $category)
             <option value="{{$category->id}}"
-            {{old("category") == $category->id ? "selected" : false}}
+            {{old("category") == $category->id ? "selected" : null}}
             @isset($product)
-                {{$product->category_id == $category->id ? "selected" : false}}   
+                {{$product->category_id == $category->id ? "selected" : null}}   
             @endisset
             >{{$category->name}}</option>
         @endforeach
@@ -42,19 +42,19 @@
     </div>
     <div class="form-group">
         <label for="description">Product description <span class="error">{{$errors->first("description")}}</span></label>
-        <textarea class="form-control" name="description" id="description" rows="3">{{old("description") ?: $product->description}}</textarea>
+        <textarea class="form-control" name="description" id="description" rows="3">{{$errors->first("description") ? old("description") : $product->description}}</textarea>
     </div>
     <div class="form-group">
         <label for="" style="display:block;">Product status <span class="error">{{$errors->first("status")}}</span></label>
             <div class="form-check form-check-inline">
-                <label for="available">
-                <input type="radio" name='status' id="available" value="available"
-                @if(old("status") == "available")
+                <label for="in-stock">
+                <input type="radio" name='status' id="in-stock" value="in stock"
+                @if(old("status") == "in stock")
                   checked
                 @else
-                  {{$product->status == 'available' ? "checked" : "checked" }}
+                  {{$product->status == 'in stock' ? "checked" : "checked" }}
                 @endif
-                /> Available
+                /> In stock
                 </label>
             </div>
             <div class="form-check form-check-inline">
@@ -70,7 +70,7 @@
             </div>
         </div>
     <div class="form-group">
-        <button id="admin-btn">{{$mode["edit"] ? "save" : "Add Product"}}</button>
+        <button id="admin-btn">SAVE</button>
     </div>
 </form>
 

@@ -22,15 +22,16 @@
             </tr>
             </thead>
             <tbody>
+               
               @foreach ($categories as $item)
                 <tr scope="row">
                   <td>{{$item->name}}</td>
-                  <td><a class="btn btn-sm btn-primary" href="/admin/categories/{{$item->id}}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                  <td><a class="btn btn-sm btn-flat btn-primary" href="/admin/categories/{{$item->id}}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
                   <td>
                     <form action="/admin/categories/{{$item->id}}?_method=DELETE" method="POST">
                       @csrf
                       @method("DELETE")
-                      <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                      <button type="submit" class="btn btn-flat btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -41,7 +42,7 @@
     </div>
   </div>
   @else 
-    <h1>You don't have any category yet.</h1>
+    <h5 class="text-center">There are no categories <a href="/admin/categories/create">add categories</a></h5>
   @endif
 
 @endsection

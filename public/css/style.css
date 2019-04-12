@@ -1,6 +1,9 @@
 #content {
   padding: 35px 0;
 }
+.content-header {
+  position: relative;
+}
 button#admin-btn {
   border: 0;
   background-color: #007bff;
@@ -24,4 +27,80 @@ img#user-thumbnail {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+.search-results .card {
+    border-radius: 0;
+    box-shadow: unset;
+    background-color: #eee;
+}
+.search-results .card-body {
+  padding: 10px 15px;
+  border: 1px solid #c4c2c2;
+}
+.search-results .card-body img {
+  width: 40px;
+  height: 40px;
+}
+.search-results .card-body .card-title {
+  display: inline-block;
+  margin-left: 15px;
+  font-size: 1.1rem;
+}
+.s-placement {
+  position: absolute;
+  width: 31.25rem;
+  background: #282828;
+  z-index: 100;
+  left: calc(50% - 15.625rem);
+  top: 0;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.s-placement .card-body {
+  padding: 5px;
+}
+.s-placement .card {
+  border-radius: 0;
+  box-shadow: unset;
+  background-color: #282828;
+  margin: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.5s ease-out;
+}
+.s-placement .card-body img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.s-placement a {
+  color: #fff;
+}
+.s-placement .card-body .card-title {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 1.1rem;
+}
+.no-result {
+  padding: 15px;
+}
+.no-result h5 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin: 0;
+}
+.s-placement .card:hover {
+  background: #b6b3b3;
+  padding-left: 5px;
+}
+.action {
+  padding-bottom: 20px;
+}
+form#del {
+  display: inline-block;
+}
+@media (max-width: 600px) {
+  .s-placement {
+    width: 95%;
+    left: 2.5%;
+  }
 }

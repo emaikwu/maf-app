@@ -45,16 +45,16 @@
     <div class="form-group">
         <label for="" style="display:block;">Product status</label>
             <div class="form-check form-check-inline">
-                <label for="available">
-                <input type="radio" name='status' id="available" value="available"
-                    @if(old("status") == "available")
+                <label for="in-stock">
+                <input type="radio" name='status' id="in-stock" value="in stock"
+                    @if(old("status") == "in stock")
                         checked
                     @else
-                        @if (old("status") != "available" || "sold out")
+                        @if (old("status") != "in stock" || "sold out")
                             {{"checked"}}
                         @endif
                     @endif
-                    /> Available
+                    /> In stock
                 </label>
             </div>
             <div class="form-check form-check-inline">

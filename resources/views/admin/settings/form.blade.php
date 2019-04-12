@@ -60,6 +60,12 @@
             <input id="email_2" type="text" class="form-control" name="email_2"/>
             </div>
         </div>
+        <div class="col-md-12">
+            <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" type="text" class="form-control" name="address"></textarea>
+            </div>
+        </div>
     </div>
     <div class="form-group">
     <button id="admin-btn">ADD SETTING</button>

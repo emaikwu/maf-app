@@ -15,11 +15,11 @@
       <div class="card" style="background-color:#fff; border-color:darkblue;">
         <div class="card-body">
           <div style="width:145px;margin-bottom:25px">
-            <a class="btn btn-primary btn-sm" href="/admin/abouts/{{$about->id}}/edit"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
+            <a class="btn btn-primary btn-flat btn-sm" href="/admin/abouts/{{$about->id}}/edit"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
             <form style="display:inline-block;margin-left:13px" action="/admin/abouts/{{$about->id}}?_method=DELETE" method="POST">
               @csrf
               @method("DELETE")
-              <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+              <button class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
             </form>
           </div>
           <div style="text-align: center">
@@ -31,7 +31,7 @@
       </div>
     @endforeach
   @else
-      <h1 class="text-center">You don't have an about page yet</h1>
+      <h5 class="text-center">You don't have an about page <a href="/admin/abouts/create">add page</a></h5>
   @endif
 
 @endsection

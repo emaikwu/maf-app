@@ -32,12 +32,12 @@
                   <td>{{$user->first_name}} {{$user->last_name}}</td>
                   <td>{{$user->email}}</td>
                   <td>{{$user->role}}</td>
-                  <td><a class="btn btn-primary btn-sm" href="/admin/users/{{$user->id}}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
+                  <td><a class="btn btn-flat btn-primary btn-sm" href="/admin/users/{{$user->id}}/edit"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a></td>
                   <td>
                     <form action="/admin/users/{{$user->id}}?_method=DELETE" method="POST">
                       @csrf
                       @method("DELETE")
-                      <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                      <button class="btn btn-flat btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
                     </form>
                   </td>
                 </tr>
@@ -48,6 +48,6 @@
       </div>
     </div>
   @else
-    <h5 class="text-center">There are no users yet <a href="/admin/users/create">Add users</a> here</h5>
+    <h5 class="text-center">There are no users <a href="/admin/users/create">add users</a></h5>
   @endif
 @endsection

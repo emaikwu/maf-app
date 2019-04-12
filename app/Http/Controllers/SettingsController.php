@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Setting;
 use Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -15,6 +16,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $settings = Setting::get();
         return view("admin.settings.index")->with("settings", $settings);
     }
@@ -26,6 +28,7 @@ class SettingsController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $settings = Setting::get();
         if(count($settings) > 0) {
             Session::flash("info", "A Setting already exists edit it instead");
@@ -42,6 +45,7 @@ class SettingsController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
         $data = [];
         $data["facebook"] = $request->facebook;
         $data["instagram"] = $request->instagram;
@@ -51,6 +55,7 @@ class SettingsController extends Controller
         $data["phone_2"] = $request->phone_2;
         $data["email_1"] = $request->email_1;
         $data["email_2"] = $request->email_2;
+        $data["address"] = $request->address;
         Setting::create($data);
         Session::flash("success", "Setting was added successfully");
         return redirect("/admin/settings");
@@ -64,7 +69,8 @@ class SettingsController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        return redirect("/admin/settings");
     }
 
     /**
@@ -75,8 +81,9 @@ class SettingsController extends Controller
      */
     public function edit($id)
     {
-        $mode = ["edit" => true, "add" => false];
-        return view("admin.settings.edit-form")->with("mode", $mode);
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        $setting = Setting::findOrFail($id);
+        return view("admin.settings.edit-form")->with("setting", $setting);
     }
 
     /**
@@ -87,8 +94,9 @@ class SettingsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   $setting = Setting::find($id);
-
+    {   
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        $setting = Setting::findOrFail($id);
         $data = [];
         $data["facebook"] = $request->facebook;
         $data["instagram"] = $request->instagram;
@@ -98,6 +106,7 @@ class SettingsController extends Controller
         $data["phone_2"] = $request->phone_2;
         $data["email_1"] = $request->email_1;
         $data["email_2"] = $request->email_2;
+        $data["address"] = $request->address;
 
         $setting->update($data);
         Session::flash("success", "Setting was updated successfully");
@@ -112,7 +121,8 @@ class SettingsController extends Controller
      */
     public function destroy($id)
     {
-        $setting = Setting::find($id);
+        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        $setting = Setting::findOrFail($id);
         $setting->delete();
         Session::flash("success", "Setting was deleted successfully");
         return redirect("/admin/settings");
