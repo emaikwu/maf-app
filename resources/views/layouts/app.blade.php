@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{asset("owl/dist/assets/owl.theme.default.min.css")}}">
     <link rel="stylesheet" href="{{asset("slick/slick/slick.css")}}">
     <link rel="stylesheet" href="{{asset("slick/slick/slick-theme.css")}}">
-    <link rel="stylesheet" href="{{asset("chocolat/chocolat.css")}}">
+    <link rel="stylesheet" href="{{asset("chocolat/css/chocolat.css")}}">
     <link rel="stylesheet" href="{{asset("css/toastr.css")}}">
     <link rel="stylesheet" href="{{asset("css/animate.css")}}">
     <link rel="stylesheet" href="{{asset("css/app.css")}}">
@@ -40,7 +40,7 @@
     <script src="{{asset("js/app.js")}}"></script>
     <script src="{{asset("owl/dist/owl.carousel.min.js")}}"></script>
     <script src="{{asset("slick/slick/slick.min.js")}}"></script>
-    <script src="{{asset("chocolat/jquery.chocolat.min.js")}}"></script>
+    <script src="{{asset("chocolat/js/jquery.chocolat.min.js")}}"></script>
     <script src="{{asset("js/wow.js")}}"></script>
     <script>
         $(function() {
