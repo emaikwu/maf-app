@@ -19,7 +19,7 @@ Route::get("/contact", "ClientsController@contact")->name("contact");
 Route::get("/about", "ClientsController@about")->name("about");
 Route::post("/client-feedback", "ClientsController@feedback")->name("feedback");
 
-Route::middleware("auth")->group(function() {
+// Route::middleware("auth")->group(function() {
   Route::get('/admin', 'DashboardController@index')->name('dashboard');  
   Route::resource("/admin/products", "ProductsController");
   Route::get("/admin/s", "ProductsController@search")->name("search");
@@ -27,6 +27,6 @@ Route::middleware("auth")->group(function() {
   Route::resource("/admin/categories", "CategoriesController");
   Route::resource("/admin/abouts", "AboutsController");
   Route::resource("/admin/slides", "SlidesController");
-});
+// });
 Auth::routes();
 Route::resource("/admin/users", "UsersController");
