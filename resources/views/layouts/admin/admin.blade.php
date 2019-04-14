@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{asset("css/toastr.css")}}">
     <link rel="stylesheet" href="{{asset("owl/dist/assets/owl.carousel.min.css")}}">
     <link rel="stylesheet" href="{{asset("owl/dist/assets/owl.theme.default.min.css")}}">
-    <link rel="stylesheet" href="{{asset("chocolat/chocolat.css")}}">
+    <link rel="stylesheet" href="{{asset("chocolat/css/chocolat.css")}}">
   </head>
   <body class="hold-transition sidebar-mini">
     @include('layouts.admin.header')
@@ -71,7 +71,7 @@
     <script src="{{asset("tinymce/jquery.tinymce.min.js")}}"></script>
     <script src="{{asset("tinymce/tinymce.min.js")}}"></script>
     <script src="{{asset("owl/dist/owl.carousel.min.js")}}"></script>
-    <script src="{{asset("chocolat/jquery.chocolat.min.js")}}"></script>
+    <script src="{{asset("chocolat/js/jquery.chocolat.min.js")}}"></script>
     <script src="{{asset("/js/main.js")}}"></script>
     <script>
       $(document).ready(function() {
