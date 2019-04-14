@@ -531,6 +531,10 @@ section.teasers .teaser .teaser-inner {
   padding: 15px;
 }
 
+section.teasers .teaser .teaser-inner .feature-icon img {
+  max-width: 60px;
+}
+
 section.teasers .teaser .teaser-inner h2 {
   margin: 0 0 0 30px;
   font-size: 1.5rem;

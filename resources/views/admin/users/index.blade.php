@@ -28,7 +28,12 @@
             <tbody>
               @foreach($users as $user)
                 <tr>
-                  <td scope="row" style="text-align: center"><img id="user-thumbnail" src="/images/users/{{$user->photo}}" alt="{{$user->first_name}} {{$user->last_name}}"/></td>
+                  <td scope="row" style="text-align: center">
+                    @if(Auth::user()->photo)<img id="user-thumbnail" src="/images/users/{{$user->photo}}" alt="{{$user->first_name}} {{$user->last_name}}">
+                    @else
+                      <img id="user-thumbnail" src="/imgs/user.png" alt="User">
+                    @endif
+                  </td>
                   <td>{{$user->first_name}} {{$user->last_name}}</td>
                   <td>{{$user->email}}</td>
                   <td>{{$user->role}}</td>

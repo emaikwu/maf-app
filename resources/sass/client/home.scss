@@ -372,6 +372,11 @@ section.teasers {
   .teaser {
     background: #eee;
     .teaser-inner {
+      .feature-icon {
+        img {
+          max-width: 60px;
+        }
+      }
       display: flex;
       align-items: center;
       justify-content: center;
