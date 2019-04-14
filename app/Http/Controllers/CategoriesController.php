@@ -17,9 +17,13 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $categories  = Category::get();
-        return view("admin.categories.index")->with("categories", $categories);
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            $categories  = Category::get();
+            return view("admin.categories.index")->with("categories", $categories);
+        } else {
+            return redirect('/login');
+        }
     }
 
     /**
@@ -29,9 +33,13 @@ class CategoriesController extends Controller
      */
     public function create()
     {   
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $mode = ["edit" => false, "add" => true];
-        return view("admin.categories.form")->with("mode", $mode);
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            $mode = ["edit" => false, "add" => true];
+            return view("admin.categories.form")->with("mode", $mode);
+        } else {
+            return redirect('/login');
+        }
     }
 
     /**
@@ -42,20 +50,24 @@ class CategoriesController extends Controller
      */
     public function store(Request $request, Category $category)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $data = [];
-        $data["name"] = $request->input("name");
-        if($request->isMethod("post")) {
-            $this->validate(
-                $request,
-                [
-                    "name" => "required|min:2"
-                ]
-            );
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            $data = [];
+            $data["name"] = $request->input("name");
+            if($request->isMethod("post")) {
+                $this->validate(
+                    $request,
+                    [
+                        "name" => "required|min:2"
+                    ]
+                );
+            }
+            $category->insert($data);
+            Session::flash("success", "Category was added successfully");
+            return redirect("/admin/categories");
+        } else {
+            return redirect('/login');
         }
-        $category->insert($data);
-        Session::flash("success", "Category was added successfully");
-        return redirect("/admin/categories");
     }
 
     /**
@@ -66,8 +78,12 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        return redirect("/admin/categories");
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            return redirect("/admin/categories");
+        } else {
+            return redirect('/login');
+        }
     }
 
     /**
@@ -78,10 +94,14 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $category = Category::find($id);
-        $mode = ["edit" => true, "add" => false];
-        return view("admin.categories.form")->with(["mode" => $mode, "category" => $category]);
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            $category = Category::find($id);
+            $mode = ["edit" => true, "add" => false];
+            return view("admin.categories.form")->with(["mode" => $mode, "category" => $category]);
+        } else {
+            return redirect('/login');
+        }
     }
 
     /**
@@ -93,20 +113,24 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $category = Category::find($id);
-        if($request->isMethod("PUT")) 
-        {
-            $this->validate(
-                $request,
-                ["name" => "required|min:2"]
-            );
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            $category = Category::find($id);
+            if($request->isMethod("PUT")) 
+            {
+                $this->validate(
+                    $request,
+                    ["name" => "required|min:2"]
+                );
 
-            $data = [];
-            $data["name"] = $request->name;
-            $category->update($data);
-            Session::flash("success", "Category was updated successfully");
-            return redirect("/admin/categories");
+                $data = [];
+                $data["name"] = $request->name;
+                $category->update($data);
+                Session::flash("success", "Category was updated successfully");
+                return redirect("/admin/categories");
+            }
+        } else {
+            return redirect('/login');
         }
     }
 
@@ -118,22 +142,15 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $products = Product::get();
-        $category = Category::find($id);
-        // foreach($products as $product) {
-        //     if($product->category_id === $category->id) {
-        //         foreach($product->images as $image) {
-        //             $file = public_path("images/products/").$image;
-        //             if(file_exists($file)) {
-        //                 unlink($file);
-        //             }
-        //         }
-        //         $product->delete();
-        //     }
-        // }
-        $category->delete();
-        Session::flash("success", "Category was deleted successfully");
-        return redirect("/admin/categories");
+        if(Auth::user()) {
+            if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+            $products = Product::get();
+            $category = Category::find($id);
+            $category->delete();
+            Session::flash("success", "Category was deleted successfully");
+            return redirect("/admin/categories");
+        } else {
+            return redirect('/login');
+        }
     }
 }

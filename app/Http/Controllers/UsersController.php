@@ -18,9 +18,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $users = User::orderBy("created_at", "desc")->paginate(8);
-        return view("admin.users.index")->with("users", $users);
+        if(Auth::user()) {
+            $users = User::orderBy("created_at", "desc")->paginate(8);
+            return view("admin.users.index")->with("users", $users);
+        } else {
+            return redirect('/login');
+        }
     }
 
     /**
@@ -30,8 +33,12 @@ class UsersController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        return view("admin.users.form");
+    //    if(Auth::user()) 
+    //    {
+           return view("admin.users.form");
+    //    } else {
+    //        return redirect('/login');
+    //    }
     }
 
     /**
@@ -42,7 +49,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        if(Auth::user()) 
+       {
         $data = [];
         if($request->isMethod("POST")) {
             $this->validate($request,
@@ -51,7 +59,7 @@ class UsersController extends Controller
                     "last_name" => "required|max:50|min:2",
                     "email" => "required|email|unique:users|max:255",
                     "role" => "required",
-                    "photo" => "required|mimes:jpeg,png,gif,bmp",
+                    "photo" => "mimes:jpeg,png,gif,bmp|size:2000",
                     "password" => "required|min:8|confirmed",
                 ]
             );
@@ -69,6 +77,9 @@ class UsersController extends Controller
             Session::flash("success", "User was added successfully");
             return redirect("/admin/users");
         }
+       } else {
+           return redirect('/login');
+       } 
     }
 
     /**
@@ -79,8 +90,12 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        return redirect("/admin/users");
+        if(Auth::user()) 
+       {
+           return redirect("/admin/users");
+       } else {
+           return redirect('/login');
+       }
     }
 
     /**
@@ -91,10 +106,14 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
-        $user = User::find($id);
-        $mode = ["edit" => true, "add" => false];
-        return view("admin.users.edit-form")->with(["mode" => $mode, 'user' => $user]);
+        if(Auth::user()) 
+       {
+           $user = User::find($id);
+           $mode = ["edit" => true, "add" => false];
+           return view("admin.users.edit-form")->with(["mode" => $mode, 'user' => $user]);
+       } else {
+           return redirect('/login');
+       }
     }
 
     /**
@@ -106,7 +125,8 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        if(Auth::user()) 
+       {
         $user_pass = Auth::user()->password;
         $user = User::findOrFail($id);
         $data = [];
@@ -127,6 +147,9 @@ class UsersController extends Controller
                return redirect()->back();
             }
         }
+       } else {
+           return redirect('/login');
+       }
     }
 
     /**
@@ -137,7 +160,8 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::user()->role !== 'admin') { return redirect("/admin"); }
+        if(Auth::user()) 
+       {
         $user = User::find($id);
         if($user) {
             $file = public_path()."/images/users/$user->photo";
@@ -148,5 +172,8 @@ class UsersController extends Controller
             Session::flash("success", "User was deleted successfully");
             return redirect("/admin/users");
         }
+       } else {
+           return redirect('/login');
+       }
     }
 }

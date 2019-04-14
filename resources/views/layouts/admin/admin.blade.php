@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" href="{{asset('imgs/icon.png')}}">
     <title>{{isset($page_title) ? $page_title : "" }}</title>
 
     <!-- Fonts -->

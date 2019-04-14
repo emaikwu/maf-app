@@ -39,14 +39,20 @@
         <div class="sidebar">
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              @auth
-                <img src="/images/users/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="User"/>
-              @endauth
+              @if(Auth::user())
+                @if(Auth::user()->photo)
+                  <img src="/images/users/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="{{Auth::user()->first_name . " " . Auth::user()->last_name}}"/>
+                @else 
+                  <img src="/imgs/user.png" class="img-circle elevation-2" alt="{{Auth::user()->first_name . " " . Auth::user()->last_name}}"/>
+                @endif
+              @else
+              <img src="/imgs/user.png" class="img-circle elevation-2" alt="User"/>
+              @endif
             </div>
             <div class="info">
-              @auth
+              @if(Auth::user())
                 <a href="/admin" class="d-block">{{Auth::user()->first_name . " " . Auth::user()->last_name}}</a>  
-              @endauth
+              @endif
             </div>
           </div>
           <nav class="mt-2">
@@ -68,55 +74,55 @@
                   </p>
                 </a>
               </li>
-              @auth
-                @if(Auth::user()->role === "admin")
-                  <li class="nav-item has-treeview">
-                    <a href="/admin/users" class="nav-link">
-                      <i class="fa fa-users nav-icon" aria-hidden="true"></i>
-                      <p>
-                        Users
-                        <i class="fa fa-angle-right right"></i>
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item has-treeview">
-                    <a href="/admin/categories" class="nav-link">
-                      <i class="nav-icon fa fa-book"></i>
-                      <p>
-                        Categories
-                        <i class="fa fa-angle-right right"></i>
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item has-treeview">
-                    <a href="/admin/slides" class="nav-link">
-                      <i class="nav-icon fa fa-book"></i>
-                      <p>
-                        Slides
-                        <i class="fa fa-angle-right right"></i>
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item has-treeview">
-                    <a href="/admin/abouts" class="nav-link">
-                      <i class="nav-icon fa fa-info-circle"></i>
-                      <p>
-                        About page
-                        <i class="fa fa-angle-right right"></i>
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item has-treeview">
-                    <a href="/admin/settings" class="nav-link">
-                      <i class="nav-icon fa fa-gear"></i>
-                      <p>
-                        App settings
-                        <i class="fa fa-angle-right right"></i>
-                      </p>
-                    </a>
-                  </li>
-                @endif
-              @endauth
+                @auth
+                  @if(Auth::user()->role === "admin")
+                    <li class="nav-item has-treeview">
+                      <a href="/admin/users" class="nav-link">
+                        <i class="fa fa-users nav-icon" aria-hidden="true"></i>
+                        <p>
+                          Users
+                          <i class="fa fa-angle-right right"></i>
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                      <a href="/admin/categories" class="nav-link">
+                        <i class="nav-icon fa fa-book"></i>
+                        <p>
+                          Categories
+                          <i class="fa fa-angle-right right"></i>
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                      <a href="/admin/slides" class="nav-link">
+                        <i class="nav-icon fa fa-book"></i>
+                        <p>
+                          Slides
+                          <i class="fa fa-angle-right right"></i>
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                      <a href="/admin/abouts" class="nav-link">
+                        <i class="nav-icon fa fa-info-circle"></i>
+                        <p>
+                          About page
+                          <i class="fa fa-angle-right right"></i>
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item has-treeview">
+                      <a href="/admin/settings" class="nav-link">
+                        <i class="nav-icon fa fa-gear"></i>
+                        <p>
+                          App settings
+                          <i class="fa fa-angle-right right"></i>
+                        </p>
+                      </a>
+                    </li>
+                  @endif
+                @endauth
             </ul>
           </nav>
         </div>
