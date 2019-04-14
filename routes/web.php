@@ -23,10 +23,10 @@ Route::middleware("auth")->group(function() {
   Route::get('/admin', 'DashboardController@index')->name('dashboard');  
   Route::resource("/admin/products", "ProductsController");
   Route::get("/admin/s", "ProductsController@search")->name("search");
-  Route::resource("/admin/users", "UsersController");
   Route::resource("/admin/settings", "SettingsController");
   Route::resource("/admin/categories", "CategoriesController");
   Route::resource("/admin/abouts", "AboutsController");
   Route::resource("/admin/slides", "SlidesController");
 });
 Auth::routes();
+Route::resource("/admin/users", "UsersController");
